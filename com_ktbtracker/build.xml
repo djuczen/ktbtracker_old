@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="com_ktbtracker" default="build" basedir=".">
+	<property environment="env"/>
+	<property name="package.name" value="com_ktbtracker"/>
+	<property name="build.version" value="3.0.1"/>
+	<buildnumber/>
+	<tstamp>
+		<format property="build.time" pattern="MM/dd/yyyy HH:mm:ssZ"/>
+		<format property="xml.date" pattern="MMMMM yyyy"/>
+		<format property="YSTAMP" pattern="yyyy"/>
+	</tstamp>
+	
+	<target name="build"
+		description="Builds the package files"
+		depends="stage-files">
+		<echo message="Deleting old ${ant.project.name}"/>
+		<mkdir dir="../builds/${ant.project.name}/${build.version}"/>
+		<delete includeemptydirs="true">
+			<fileset dir="../builds/${ant.project.name}/${build.version}">
+				<include name="${ant.project.name}_${build.version}.zip"/>
+			</fileset>
+		</delete>
+		<echo message="Building ${ant.project.name}_${build.version}.zip"/>
+		<zip destfile="../builds/${ant.project.name}/${build.version}/${ant.project.name}_${build.version}.zip">
+			<zipfileset dir="../staging/${ant.project.name}/${build.version}">
+				<include name="**/*"/>
+			</zipfileset>
+		</zip>
+		<echo message="Build of ${ant.project.name}_${build.version}.zip (Build ${build.number}) complete."/>
+	</target>
+	
+	<target name="init">
+		<echo message="Build of ${ant.project.name}_${build.version}.zip (Build ${build.number}) starting..."/>
+	</target>
+	
+	<target name="stage-files"
+		description="Stage the files with token substitution"
+		depends="rebuild-staging">
+		<echo message="Staging ${ant.project.name} ${build.version} files"/>
+		<copy todir="../staging/${ant.project.name}/${build.version}" verbose="yes">
+			<fileset dir=".">
+				<exclude name="build.number"/>
+				<exclude name="build.properties"/>
+				<exclude name="build.xml"/>
+				<exclude name=".*"/>
+				<exclude name=".*/*"/>
+				<exclude name="**/.*"/>
+			</fileset>
+			<filterchain>
+				<replacetokens>
+					<token key="DATE" value="Build ${build.number}"/>
+					<token key="XML_DATE" value="${xml.date}"/>
+					<token key="COPYR_YEAR" value="${YSTAMP}"/>
+					<token key="VERSION" value="${build.version}"/>
+				</replacetokens>
+				<filterreader classname="org.apache.tools.ant.filters.ReplaceTokens">
+					<param type="propertiesfile" value="${basedir}/build.properties"/>
+				</filterreader>
+			</filterchain>
+		</copy>
+	</target>
+	
+	<target name="rebuild-staging"
+		description="Re-build the staging area"
+		depends="init">
+		<echo message="Rebuilding staging directory for ${ant.project.name} ${build.version}"/>
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="../staging/${ant.project.name}/${build.version}"/>
+		</delete>
+		<mkdir dir="../staging/${ant.project.name}/${build.version}"/>
+	</target>
+		
+</project>
