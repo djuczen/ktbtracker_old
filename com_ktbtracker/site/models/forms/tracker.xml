@@ -135,15 +135,6 @@
 			filter="intval">
 		</field>
 		<field	
-			name="sparring"
-			type="text"
-			label="COM_KTBTRACKER_FIELD_SPARRING_LABEL"
-			description="COM_KTBTRACKER_FIELD_SPARRING_DESC"
-			class="form-control"
-			size="20"
-			filter="intval">
-		</field>
-		<field	
 			name="poomsae"
 			type="text"
 			label="COM_KTBTRACKER_FIELD_POOMSAE_LABEL"
@@ -157,6 +148,24 @@
 			type="text"
 			label="COM_KTBTRACKER_FIELD_SELF_DEFENSE_LABEL"
 			description="COM_KTBTRACKER_FIELD_SELF_DEFENSE_DESC"
+			class="form-control"
+			size="20"
+			filter="intval">
+		</field>
+		<field	
+			name="sparring"
+			type="text"
+			label="COM_KTBTRACKER_FIELD_SPARRING_LABEL"
+			description="COM_KTBTRACKER_FIELD_SPARRING_DESC"
+			class="form-control"
+			size="20"
+			filter="intval">
+		</field>
+		<field	
+			name="jumps"
+			type="text"
+			label="COM_KTBTRACKER_FIELD_JUMPS_LABEL"
+			description="COM_KTBTRACKER_FIELD_JUMPS_DESC"
 			class="form-control"
 			size="20"
 			filter="intval">

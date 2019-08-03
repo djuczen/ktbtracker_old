@@ -740,7 +740,7 @@ class KTBTrackerHelper
         } elseif (!empty($cycle->cycle_goals)) {
             $query->where($db->qn('id') . ' = ' . (int) $cycle->cycle_goals);
         } else {
-            $query->where($db->qn('id') . ' = 1');
+            $query->where($db->qn('id') . ' = 3');
         }
         $db->setQuery($query);
         $goalSet = $db->loadObject();
@@ -815,7 +815,7 @@ class KTBTrackerHelper
             $cont_totals = $db->loadObject();
             
             // Carry over the continue cycle values (up to the max).
-            $goals = self::getCycleRequirements($cont_cycle);
+            $goals = self::getCycleGoalSet($candidate);
             foreach (get_object_vars($totals) as $key => $value)
             {
                 if (($goals[$key]->access == 0 || $goals[$key]->access == $candidate->access) && $goals[$key]->tract <= $candidate->tract)

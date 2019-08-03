@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry external="true" kind="lib" path="E:/Users/david/Downloads/Joomla_3.9.8-Stable-Full_Package/includes"/>
+	<buildpathentry kind="src" path=""/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+	<buildpathentry external="true" kind="lib" path="E:/Users/david/Downloads/Joomla_3.9.8-Stable-Full_Package/libraries"/>
+</buildpath>

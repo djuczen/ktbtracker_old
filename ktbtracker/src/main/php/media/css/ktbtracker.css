@@ -1,0 +1,23 @@
+
+
+
+div.easy-pie-chart {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	text-align: center;
+}
+
+div.easy-pie-chart span {
+	display: inline-block;
+	width: 60px;
+	line-height: 60px;
+	z-index: 2;
+}
+
+div.easy-pie-chart canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+}

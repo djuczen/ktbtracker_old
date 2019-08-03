@@ -15,7 +15,7 @@ JHtml::addIncludePath(JPATH_BASE . '/components/com_ktbtracker/helpers/html');
 
 
 $user       = JFactory::getUser();
-
+$today      = new DateTime();
 ?>
 <form action="<?php echo JRoute::_('index.php?opt=com_ktbtracker&view=candidates'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="jsn-p">
@@ -29,6 +29,33 @@ $user       = JFactory::getUser();
 			<?php 
 			 foreach ($this->items as $i => $item) :
 			     dump($item, "Item $i");
+			     
+			     if (!empty($item->last_tracked)) {
+			         $last_t = $today->diff(new DateTime($item->last_tracked), true)->days;
+			         if ($last_t > 5) {
+			             $last_t_class = 'exclamation-circle" style="color: #D9534F;';
+			         } elseif ($last_t > 3) {
+			             $last_t_class = 'exclamation-triangle" style="color: #FFD51D;';
+			         } else {
+			             $last_t_class = 'check-square" style="color: #81CA0D;';
+			         }
+			     } else {
+			         $missed_days += 100;
+			         $last_t_class = 'exclamation-circle" style="color: #D9534F';
+			     }
+			     
+			     if (!empty($item->last_journaled)) {
+			         $last_j = $today->diff(new DateTime($item->last_journaled), true)->days;
+			         if ($last_j > 5) {
+			             $last_j_class = 'exclamation-circle" style="color: #D9534F;';
+			         } elseif ($last_j > 3) {
+			             $last_j_class = 'exclamation-triangle" style="color: #FFD51D;';
+			         } else {
+			             $last_j_class = 'check-square" style="color: #81CA0D;';
+			         }
+			     } else {
+			         $last_j_class = 'exclamation-circle" style="color: #D9534F';
+			     }
 			?>
     			<tr>
     				<td>
@@ -47,10 +74,12 @@ $user       = JFactory::getUser();
             					<div class="jsn-p-dates">
             						<div class="jsn-p-date-reg">
             							<b><i class="fa fa-line-chart"></i> <?php echo JText::_('COM_KTBTRACKER_FIELD_LAST_TRACKED_LABEL'); ?>: </b>
+            							<i class="fa fa-<?php echo $last_t_class; ?>"></i>
             							<?php echo JHtml::_('ktbformat.date', $item->last_tracked); ?>
             						</div>
             						<div class="jsm-p-date-last">
             							<b><i class="fa fa-newspaper-o"></i> <?php echo JText::_('COM_KTBTRACKER_FIELD_LAST_JOURNALED_LABEL'); ?>: </b>
+            							<i class="fa fa-<?php echo $last_j_class; ?>"></i>
             							<?php echo JHtml::_('ktbformat.date', $item->last_journaled); ?>
             						</div>
             					</div>

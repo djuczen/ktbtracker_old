@@ -91,13 +91,13 @@ class KTBTrackerModelCandidates extends JModelList
 		}
 
 		// Populate Criteria
-		$trackingUser = $this->getUserStateFromRequest($this->option . '.tracking.user', 'trackingUser');
+		$trackingUser = $this->getUserStateFromRequest($this->option . '.tracking.user', 'trackingUser', JFactory::getUser());
 		$this->setState('tracking.user', $trackingUser);
 		
-		$trackingCycle = $this->getUserStateFromRequest($this->option . '.tracking.cycle', 'cycleid');
+		$trackingCycle = $this->getUserStateFromRequest($this->option . '.tracking.cycle', 'cycleid', KTBTrackerHelper::getCurrentCycle());
 		$this->setState('tracking.cycle', $trackingCycle);
 		
-		$trackingDate = $this->getUserStateFromRequest($this->option . '.tracking.date', 'trackingDate');
+		$trackingDate = $this->getUserStateFromRequest($this->option . '.tracking.date', 'trackingDate', JHtml::_('date', 'now', 'Y-m-d'));
 		$this->setState('tracking.date', $trackingDate);
 		
 		// Populate Filters
@@ -191,6 +191,11 @@ class KTBTrackerModelCandidates extends JModelList
 	        ' WHEN ' . 1 . ' THEN ' . $db->q(JText::_('COM_KTBTRACKER_OPTION_POOM')) .
 	        ' WHEN ' . 2 . ' THEN ' . $db->q(JText::_('COM_KTBTRACKER_OPTION_ADULT')) .
 	        ' WHEN ' . 3 . ' THEN ' . $db->q(JText::_('COM_KTBTRACKER_OPTION_MASTER')) . ' END) AS ' . $db->qn('adult_name'));
+	    
+	    // Hide hidden users (except to authorized users)
+	    if (!$user->authorise('core.edit', 'com_ktbtracker')) {
+	        $query->where($db->qn('hidden') . ' = 0');
+	    }
 	    
 	    // Filter by cycle id.
 	    $cycleId = $this->getState('tracking.cycle');

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="component" version="3.0" method="upgrade">
+
+	<name>COM_KTBTRACKER</name>
+	<version>${VERSION}</version>
+	<author>David J. Uczen</author>
+	<authorEmail>david@daviduczenphotography.com</authorEmail>
+	<authorUrl>https://www.daviduczenphotography.com</authorUrl>
+	<copyright>COM_KTBTRACKER_COPYRIGHT</copyright>
+	<license>COM_KTBTRACKER_LICENSE</license>
+	<description>COM_KTBTRACKER_DESCRIPTION</description>
+	
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+	
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>controller.php</filename>
+		<filename>ktbtracker.php</filename>
+		<folder>helpers</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+	
+	<languages folder="site/language">
+		<language tag="en-GB">en-GB/en-GB.com_ktbtracker.ini</language>
+	</languages>
+	
+	<media destination="com_ktbtracker" folder="media">
+		<filename>index.html</filename>
+		<folder>css</folder>
+		<folder>js</folder>
+	</media>	
+	
+	<administration>
+		<menu link="index.php?option=com_ktbtracker">King Tiger Blackbelt Tracker</menu>
+		
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>ktbtracker.php</filename>
+			<folder>helpers</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+		</files>
+		
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_ktbtracker.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_ktbtracker.sys.ini</language>
+		</languages>
+		
+	</administration>
+</extension>

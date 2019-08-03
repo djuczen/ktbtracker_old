@@ -67,19 +67,13 @@ class KTBTrackerModelTracker extends JModelAdmin
 			return false;
 		}
 		
-		// Modify the form based on Edit State access controls.
-		if ($id != 0 && (!$user->authorise('core.edit', 'com_ktbtracker.tracker.' . (int) $id))
-			|| ($id == 0 && !$user->authorise('core.edit', 'com_ktbtracker'))) {
-			// Disable fields for display.
-			$form->setFieldAttribute('userid', 'disabled', 'true');
-			$form->setFieldAttribute('cycleid', 'disabled', 'true');
-			$form->setFieldAttribute('tracking_date', 'disabled', 'true');
-
-			// Disable fields while saving.
-			// The controller has already verified this is an article you can edit.
-			$form->setFieldAttribute('userid', 'filter', 'unset');
-			$form->setFieldAttribute('cycleid', 'filter', 'unset');
-			$form->setFieldAttribute('tracking_date', 'filter', 'unset');
+		// If an existing record, don't change any keys!
+		if (!empty($id)) {
+    		// Disable fields while saving.
+    		// The controller has already verified this is an article you can edit.
+    		$form->setFieldAttribute('userid', 'filter', 'unset');
+    		$form->setFieldAttribute('cycleid', 'filter', 'unset');
+    		$form->setFieldAttribute('tracking_date', 'filter', 'unset');
 		}
 		
 		return $form;
@@ -103,13 +97,13 @@ class KTBTrackerModelTracker extends JModelAdmin
 		if (empty($data)) {
 			$data = $this->getItem();
 		}
-		dump($data, 'loadFormData (DB)');
+        dump($data, 'loadFormData (DB)');
+        
 		// If a new record, pre-populate our hidden keys
 		if (empty($data->id)) {
-		    dump($app->input, 'loadFormData (input)');
-		    $data->tracking_date = $app->input->getString('trackingDate', JHtml::_('date', 'now', 'Y-m-d'));
-		    $data->userid = $app->input->getInt('trackingUser', JFactory::getUser()->id);
-		    $data->cycleid = $app->input->getInt('cycleid', KTBTrackerHelper::getCurrentCycleId());
+		    $data->tracking_date = $this->getState('tracking.date');
+		    $data->userid = $this->getState('tracking.user');
+		    $data->cycleid = $this->getState('tracking.cycle');
 		}
 		
 		dump($data, 'loadFormData (final)');
@@ -128,20 +122,20 @@ class KTBTrackerModelTracker extends JModelAdmin
 	 * @note    Calling getState in this method will result in recursion.
 	 * @since   3.0
 	 */
-	protected function populateStateX()
+	protected function populateState()
 	{
 	    // Initialise variables.
 	    $app = JFactory::getApplication();
 	    $session = JFactory::getSession();
 	    
 	    // Populate Criteria
-	    $trackingUser = $app->getUserStateFromRequest($this->option . '.tracking.user', 'trackingUser', JFactory::getUser()->id);
+	    $trackingUser = $app->getUserStateFromRequest($this->option . '.tracking.user', 'trackingUser');
 	    $this->setState('tracking.user', $trackingUser);
 	    
-	    $trackingCycle = $app->getUserStateFromRequest($this->option . '.tracking.cycle', 'cycleid', KTBTrackerHelper::getCurrentCycleId());
+	    $trackingCycle = $app->getUserStateFromRequest($this->option . '.tracking.cycle', 'cycleid');
 	    $this->setState('tracking.cycle', $trackingCycle);
 	    
-	    $trackingDate = $app->getUserStateFromRequest($this->option . '.tracking.date', 'trackingDate', JHtml::_('date', 'now', 'Y-m-d'));
+	    $trackingDate = $app->getUserStateFromRequest($this->option . '.tracking.date', 'trackingDate');
 	    $this->setState('tracking.date', $trackingDate);
 	    
 	    $trackingCanId = $app->getUserStateFromRequest($this->option . '.tracking.canid', 'canid');
@@ -227,15 +221,13 @@ class KTBTrackerModelTracker extends JModelAdmin
 		
 	public function getCandidate()
 	{
-        $trackerId = $this->getState('tracker.id');
-        
-        if (!empty($trackerId)) {
-            $item = $this->getItem($trackerId);
-
-            $candidate = KTBTrackerHelper::getTrackingUser($item->userid, $item->cycleid);
-        } else {
-            $trackingUser = JFactory::getApplication()->input->get('trackingUser', JFactory::getUser()->id);
-            $cycleid = JFactory::getApplication()->input->get('cycleid', KTBTrackerHelper::getCurrentCycle());
+	    $canId = $this->getState('tracking.canid');
+	    
+	    if (!empty($canId)) {
+	        $candidate = KTBTrackerHelper::getCandidate($canId);
+	    } else {
+            $trackingUser = $this->getState('tracking.date');
+            $cycleid = $this->getState('tracking.cycle');
             
             $candidate = KTBTrackerHelper::getTrackingUser($trackingUser, $cycleid);
         }
@@ -253,7 +245,7 @@ class KTBTrackerModelTracker extends JModelAdmin
 	        
 	        $cycle = KTBTrackerHelper::getCycle($item->cycleid);
 	    } else {
-	        $cycleid = JFactory::getApplication()->input->get('cycleid', KTBTrackerHelper::getCurrentCycle());
+	        $cycleid = $this->getState('tracking.cycle');
 	        
 	        $cycle = KTBTrackerHelper::getCycle($cycleid);
 	    }
