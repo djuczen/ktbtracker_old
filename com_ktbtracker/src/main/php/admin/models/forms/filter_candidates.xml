@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * @package		Joomla.Administrator
+ * @subpackage 	com_ktbtracker
+ * 
+ * @copyright	Copyright (C) 2012-2017 David Uczen Photography, Inc. All Rights Reserved.
+ * @license		Licensed Materials - Property of David Uczen Photography, Inc.; see LICENSE.txt
+ *
+ * $Id$
+-->
+<form>
+	<fields name="filter">
+		<fieldset name="filter" addfieldpath="/administator/components/com_ktbtracker/models/fields">
+			<field	
+				name="search"
+				type="text"
+				label="COM_KTBTRACKER_FILTER_SEARCH_DESC"
+				hint="JSEARCH_FILTER"
+				class="js-stools-search-string">
+			</field>
+			<field	
+				name="cycleid"
+				type="cyclelist"
+				label="COM_KTBTRACKER_FIELD_CYCLEID_LABEL"
+				description="COM_KTBTRACKER_FIELD_CYCLEID_DESC"
+				onchange="this.form.submit();">
+				<option value="">COM_KTBTRACKER_FIELD_CYCLEID_PLACEHOLDER</option>
+			</field>
+			<field	
+				name="status"
+				type="statuslist"
+				label="COM_KTBTRACKER_FIELD_STATUS_LABEL"
+				description="COM_KTBTRACKER_FIELD_STATUS_DESC"
+				onchange="this.form.submit();">
+				<option value="">COM_KTBTRACKER_FIELD_STATUS_PLACEHOLDER</option>
+			</field>
+			<field	
+				name="tract"
+				type="tractlist"
+				label="COM_KTBTRACKER_FIELD_TRACT_LABEL"
+				description="COM_KTBTRACKER_FIELD_TRACT_DESC"
+				onchange="this.form.submit();">
+				<option value="">COM_KTBTRACKER_FIELD_TRACT_PLACEHOLDER</option>
+			</field>
+		</fieldset>
+	</fields>
+	<fields name="list">
+		<fieldset name="list">
+			<field
+				name="limit"
+				type="limitbox"
+				class="input-mini"
+				default="25"
+				label="COM_KTBTRACKER_LIST_LIMIT"
+				description="COM_KTBTRACKER_LIST_LIMIT_DESC"
+				onchange="this.form.submit();">
+			</field>
+		</fieldset>
+	</fields>
+</form>

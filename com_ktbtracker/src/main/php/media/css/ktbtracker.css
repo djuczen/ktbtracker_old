@@ -1,0 +1,15 @@
+@CHARSET "ISO-8859-1";
+
+.icon-fa:before, .icon-ktbtracker:before {
+  display: inline-block;
+  font-family: 'FontAwesome' !important;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.graduate:before {
+	content: "\f19d"; // fa-mortar-board, fa-graduation-cap
+}

@@ -1,9 +1,0 @@
--- ------------------------------------------------------------------------
--- @package		Joomla.Administrator
--- @subpackage 	com_ktbtracker
--- 
--- @copyright	Copyright (C) 2012-2017 David Uczen Photography, Inc. All Rights Reserved.
--- @license		Licensed Materials - Property of David Uczen Photography, Inc.; see LICENSE.txt
--- 
--- $Id$
--- ------------------------------------------------------------------------
