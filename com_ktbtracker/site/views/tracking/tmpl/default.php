@@ -3,7 +3,7 @@
  * @package		Joomla.Site
  * @subpackage 	com_ktbtracker
  *
- * @copyright	Copyright (C) 2012-@COPYR_YEAR@ David Uczen Photography, Inc. All Rights Reserved.
+ * @copyright	Copyright (C) 2012-2017 David Uczen Photography, Inc. All Rights Reserved.
  * @license		Licensed Materials - Property of David Uczen Photography, Inc.; see LICENSE.txt
  *
  * $Id$
@@ -126,7 +126,7 @@ $cycle_reqmnts = explode(',', $this->cycle->cycle_reqmnts);
 							<div class="progress-bar progress-bar-<?php echo $progress->class; ?>" role="progressbar"
 								aria-valuenow="<?php echo number_format($progress->progress, 0); ?>" aria-valuemin="0" aria-valuemax="100" 
 								style="width: <?php echo $progress->progress; ?>%">
-								<span class="sr-only"><?php echo number_format($progress, 2); ?>%</span>
+								<span class="sr-only"><?php echo number_format($progress->progress, 2); ?>%</span>
 							</div>
 						</div>
 					</td>
@@ -167,7 +167,7 @@ $cycle_reqmnts = explode(',', $this->cycle->cycle_reqmnts);
 							<div class="progress-bar progress-bar-<?php echo $progress->class; ?>" role="progressbar"
 								aria-valuenow="<?php echo number_format($progress->progress, 0); ?>" aria-valuemin="0" aria-valuemax="100" 
 								style="width: <?php echo $progress->progress; ?>%">
-								<span class="sr-only"><?php echo number_format($progress, 2); ?>%</span>
+								<span class="sr-only"><?php echo number_format($progress->progress, 2); ?>%</span>
 							</div>
 						</div>
 					</td>
