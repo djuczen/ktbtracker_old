@@ -3,20 +3,20 @@
  * @package		Joomla.Administrator
  * @subpackage 	com_ktbtracker
  * 
- * @copyright	Copyright (C) 2012-@COPYR_YEAR@ David Uczen Photography, Inc. All Rights Reserved.
+ * @copyright	Copyright (C) 2012-2017 David Uczen Photography, Inc. All Rights Reserved.
  * @license		Licensed Materials - Property of David Uczen Photography, Inc.; see LICENSE.txt
  *
  * $Id$
 -->
 <extension type="component" version="3.2" method="upgrade">
 	<name>com_ktbtracker</name>
-	<creationDate>@XML_DATE@</creationDate>
-	<copyright>Copyright (C) 2012-@COPYR_YEAR@ David Uczen Photography, Inc. All Rights Reserved.</copyright>
+	<creationDate>September 2017</creationDate>
+	<copyright>Copyright (C) 2012-2017 David Uczen Photography, Inc. All Rights Reserved.</copyright>
 	<license>Licensed Materials - Property of David Uczen Photography, Inc.; see LICENSE.txt</license>
 	<author>David Uczen Photography, Inc.</author>
 	<authorEmail>info@daviduczenphotography.com</authorEmail>
 	<authorUrl>http://www.daviduczenphotography.com</authorUrl>
-	<version>@VERSION@</version>
+	<version>3.0.1</version>
 	<description>COM_KTBTRACKER_XML_DESCRIPTION</description>
  
  	<scriptfile>installer.script.php</scriptfile>
